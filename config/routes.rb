@@ -4,7 +4,10 @@ Rails.application.routes.draw do
       resources :merchants, except: [:new, :edit]
       resources :customers, except: [:new, :edit]
       resources :transactions, except: [:new, :edit]
-      resources :invoices, except: [:new, :edit]
+      resources :invoices, except: [:new, :edit] do
+        get '/customer', to: 'invoices/customers#show'
+        get '/merchant', to: 'invoices/merchants#show'
+      end
       resources :invoice_items, except: [:new, :edit] do
         get '/invoice', to: 'invoice_items/invoices#show'
         get '/item', to: 'invoice_items/items#show'
