@@ -52,8 +52,6 @@ describe "items endpoint" do
       expect(response).to be_success
       expect(merchant_response["id"]).to eq(merchant.id)
       expect(merchant_response["name"]).to eq("Target")
-
     end
   end
-
 end
