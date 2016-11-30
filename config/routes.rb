@@ -4,6 +4,12 @@ Rails.application.routes.draw do
       namespace :invoices do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
+      end
+      namespace :items do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
       end
       resources :merchants, except: [:new, :edit] do
         scope module: 'merchants' do

@@ -74,4 +74,20 @@ describe "invoices search endpoint" do
       expect(invoices.last['status']).to eq('paid')
     end
   end
+
+  context "GET /invoices/random" do
+    it "returns random invoice" do
+      invoice = create(:invoice)
+      invoice2 = create(:invoice)
+      invoice3 = create(:invoice)
+      
+      get "/api/v1/invoices/random"
+
+      invoice_response = JSON.parse(response.body)
+
+      invoice_ids = [invoice.id, invoice2.id, invoice3.id]
+      expect(response).to be_success
+      expect(invoice_ids).to include(invoice_response.first['id'])
+    end
+  end
 end
