@@ -25,6 +25,8 @@ describe "customers endpoint" do
 
       expect(response).to be_success
       expect(customer["first_name"]).to eq("brad")
+      expect(customer["created_at"]).to eq(nil)
+      expect(customer["updated_at"]).to eq(nil)
     end
   end
 

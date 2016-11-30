@@ -2,12 +2,10 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
   before_action :change_unit_price
 
   def show
-    change_unit_price if params[:unit_price]
     render json: InvoiceItem.find_by(search_params)
   end
 
   def index
-    change_unit_price if params[:unit_price]
     render json: InvoiceItem.where(search_params)
   end
 
