@@ -57,12 +57,12 @@ describe "customers endpoint" do
 
       transactions = JSON.parse(response.body)
 
-      invoice_response = Invoice.find(transactions.last['invoice_id'])
+      invoice_record = Invoice.find(transactions.last['invoice_id'])
 
       expect(response).to be_success
       expect(transactions.count).to eq(2)
       expect(transactions.first['invoice_id']).to eq(invoice.id)
-      expect(invoice_response.customer_id).to eq(customer.id)
+      expect(invoice_record.customer).to eq(customer)
     end
   end
 end
