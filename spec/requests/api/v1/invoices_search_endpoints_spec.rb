@@ -15,6 +15,34 @@ describe "invoices search endpoint" do
       expect(invoice['id']).to eq(invoice.id)
     end
   end
+  context "GET /invoices/find?status" do
+    it "returns status with case insensitive params" do
+
+      invoice = create(:invoice, status: "good")
+      invoice2 = create(:invoice, status: "bad")
+
+      get "/api/v1/invoices/find?status=GOOD"
+
+      invoice_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice['status']).to eq(invoice.status)
+    end
+  end
+  context "GET /invoices/find?id" do
+    it "returns invoice with id" do
+
+      invoice = create(:invoice)
+      invoice2 = create(:invoice)
+
+      get "/api/v1/invoices/find?id=#{invoice.id}"
+
+      invoice_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice['id']).to eq(invoice.id)
+    end
+  end
 
   context "GET /invoices/find?customer_id" do
     it "returns invoice with customer_id" do
@@ -48,7 +76,7 @@ describe "invoices search endpoint" do
     it "returns invoice with status" do
       invoice = create(:invoice, status: 'paid')
       invoice2 = create(:invoice, status: 'unpaid')
-      
+
       get "/api/v1/invoices/find?status=paid"
 
       invoice_response = JSON.parse(response.body)
@@ -63,7 +91,7 @@ describe "invoices search endpoint" do
       invoice = create(:invoice, status: 'paid')
       invoice2 = create(:invoice, status: 'paid')
       invoice3 = create(:invoice, status: 'unpaid')
-      
+
       get "/api/v1/invoices/find_all?status=paid"
 
       invoices = JSON.parse(response.body)
@@ -80,7 +108,7 @@ describe "invoices search endpoint" do
       invoice = create(:invoice)
       invoice2 = create(:invoice)
       invoice3 = create(:invoice)
-      
+
       get "/api/v1/invoices/random"
 
       invoice_response = JSON.parse(response.body)

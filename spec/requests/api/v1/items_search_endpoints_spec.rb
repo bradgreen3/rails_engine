@@ -15,7 +15,34 @@ describe "items search endpoint" do
       expect(item['id']).to eq(item.id)
     end
   end
+  context "GET /items/find?name" do
+    it "returns item with case insensitive search" do
 
+      item = create(:item, name: "marker")
+      item2 = create(:item, name: "pen")
+
+      get "/api/v1/items/find?id=#{item.id}"
+
+      item_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(item['id']).to eq(item.id)
+    end
+  end
+  context "GET /items/find?description" do
+    it "returns item with case insensitive search" do
+
+      item = create(:item, description: "cool")
+      item2 = create(:item, description: "not cool")
+
+      get "/api/v1/items/find?description=COoL"
+
+      item_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(item['description']).to eq("cool")
+    end
+  end
   context "GET /items/find?name" do
     it "returns item with name" do
       item = create(:item, name: "Bob")
@@ -47,7 +74,7 @@ describe "items search endpoint" do
       item = create(:item, name: 'bob')
       item2 = create(:item, name: 'bob')
       item3 = create(:item, name: 'sally')
-      
+
       get "/api/v1/items/find_all?name=bob"
 
       invoices = JSON.parse(response.body)
@@ -64,7 +91,7 @@ describe "items search endpoint" do
       item = create(:item)
       item2 = create(:item)
       item3 = create(:item)
-      
+
       get "/api/v1/items/random"
 
       item_response = JSON.parse(response.body)

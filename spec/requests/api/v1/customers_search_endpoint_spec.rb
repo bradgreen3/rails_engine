@@ -16,6 +16,20 @@ describe "customers search endpoint" do
 
     end
   end
+  context "GET /api/v1/customers/find?name=bRaD" do
+    it "returns customer from case insensitive params" do
+
+      customer1 = create(:customer, first_name: "matt")
+      customer2 = create(:customer, first_name: "brad")
+
+      get "/api/v1/customers/find?first_name=BRAD"
+
+      customer_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(customer_response["first_name"]).to eq("brad")
+    end
+  end
   context "GET /customers/find_all?parameters" do
     it "returns all customers with same first_name" do
       customer1 = create(:customer, first_name: "brad")
