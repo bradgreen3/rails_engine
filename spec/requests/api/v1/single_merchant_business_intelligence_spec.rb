@@ -8,10 +8,10 @@ describe 'Single merchant business intelligence' do
 			invoice2 = create(:invoice, merchant: merchant)
 			invoice3 = create(:invoice, merchant: merchant)
 			invoice4 = create(:invoice)
-			transaction = create(:transaction, invoice: invoice1, status: 'success')
-			transaction = create(:transaction, invoice: invoice2, status: 'success')
-			transaction = create(:transaction, invoice: invoice3, status: 'failed')
-			transaction = create(:transaction, invoice: invoice4, status: 'success')
+			transaction = create(:transaction, invoice: invoice1, result: 'success')
+			transaction = create(:transaction, invoice: invoice2, result: 'success')
+			transaction = create(:transaction, invoice: invoice3, result: 'failed')
+			transaction = create(:transaction, invoice: invoice4, result: 'success')
 			invoice_item = create(:invoice_item, invoice: invoice1, quantity: 10, unit_price: 500)
 			invoice_item = create(:invoice_item, invoice: invoice2, quantity: 10, unit_price: 1000)
 			invoice_item = create(:invoice_item, invoice: invoice3, quantity: 10, unit_price: 500)
@@ -21,7 +21,8 @@ describe 'Single merchant business intelligence' do
 
 			merchant_response = JSON.parse(response.body)
 
-			expect(merchant_response['revenue']).to eq('150.00')
+
+			expect(merchant_response).to eq('150.00')
 		end
 	end	
 end
