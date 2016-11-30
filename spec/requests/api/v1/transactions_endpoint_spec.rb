@@ -14,7 +14,6 @@ describe "transactions endpoint" do
       expect(transactions.count).to eq(3)
     end
   end
-
   context "GET /api/v1/transactions/:id" do
     it "returns a transaction" do
 
