@@ -15,7 +15,7 @@ describe "items endpoint" do
   end
   context "GET /items/:id" do
     it "returns a item" do
-      item = create(:item, name: "Stuff")
+      item = create(:item, name: "Stuff", unit_price: 199)
 
       get "/api/v1/items/#{item.id}"
 
@@ -23,6 +23,10 @@ describe "items endpoint" do
 
       expect(response).to be_success
       expect(item["name"]).to eq("Stuff")
+      expect(item["created_at"]).to eq(nil)
+      expect(item["updated_at"]).to eq(nil)
+      expect(item["unit_price"]).to eq('1.99')
+
     end
   end
 

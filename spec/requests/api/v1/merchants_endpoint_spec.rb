@@ -19,10 +19,12 @@ describe "merchants endpoint" do
 
       get "/api/v1/merchants/#{merchant.id}"
 
-      merchant = JSON.parse(response.body)
+      merchant_response = JSON.parse(response.body)
 
       expect(response).to be_success
       expect(merchant["name"]).to eq("Reynolds Inc")
+      expect(merchant_response["created_at"]).to eq(nil)
+      expect(merchant_response["updated_at"]).to eq(nil)
     end
   end
 

@@ -26,6 +26,9 @@ describe "transactions endpoint" do
 
       expect(response).to be_success
       expect(transaction_response["credit_card_number"]).to eq("1234")
+       expect(transaction_response["created_at"]).to eq(nil)
+      expect(transaction_response["updated_at"]).to eq(nil)
+      expect(transaction_response["credit_card_expiration_date"]).to eq(nil)
     end
   end
 
