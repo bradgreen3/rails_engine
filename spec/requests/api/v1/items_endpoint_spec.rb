@@ -25,6 +25,7 @@ describe "items endpoint" do
       expect(item["name"]).to eq("Stuff")
     end
   end
+
   context "GET /items/:id/invoice_items" do
     it "returns associated invoice items" do
       item = create(:item, name: "Stuff")
@@ -55,3 +56,5 @@ describe "items endpoint" do
     end
   end
 end
+
+

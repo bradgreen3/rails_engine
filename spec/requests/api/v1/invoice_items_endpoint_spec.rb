@@ -26,6 +26,7 @@ describe "invoice_items endpoint" do
       expect(invoice_item["quantity"]).to eq(99)
     end
   end
+
   context "GET /invoice_items/:id/invoice" do
     it "returns associated invoice" do
       invoice = create(:invoice, status: "complete")
