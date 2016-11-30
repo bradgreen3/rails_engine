@@ -23,6 +23,8 @@ describe "invoices endpoint" do
 
       expect(response).to be_success
       expect(invoice["status"]).to eq("Is Paid")
+      expect(invoice["created_at"]).to eq(nil)
+      expect(invoice["updated_at"]).to eq(nil)
     end
   end
 

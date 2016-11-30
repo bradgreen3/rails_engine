@@ -12,23 +12,10 @@ describe "items search endpoint" do
       item_response = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(item['id']).to eq(item.id)
+      expect(item_response['id']).to eq(item.id)
     end
   end
-  context "GET /items/find?name" do
-    it "returns item with case insensitive search" do
 
-      item = create(:item, name: "marker")
-      item2 = create(:item, name: "pen")
-
-      get "/api/v1/items/find?id=#{item.id}"
-
-      item_response = JSON.parse(response.body)
-
-      expect(response).to be_success
-      expect(item['id']).to eq(item.id)
-    end
-  end
   context "GET /items/find?description" do
     it "returns item with case insensitive search" do
 
@@ -40,9 +27,10 @@ describe "items search endpoint" do
       item_response = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(item['description']).to eq("cool")
+      expect(item_response['description']).to eq("cool")
     end
   end
+
   context "GET /items/find?name" do
     it "returns item with name" do
       item = create(:item, name: "Bob")
@@ -52,20 +40,20 @@ describe "items search endpoint" do
       item_response = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(item['name']).to eq(item.name)
+      expect(item_response['name']).to eq("Bob")
     end
   end
 
-  context "GET /items/find?description" do
-    it "returns item with description" do
-      item = create(:item, description: "description")
+  context "GET /items/find?unit_price" do
+    it "returns item with unit_price" do
+      item = create(:item, unit_price: 199)
 
-      get "/api/v1/items/find?description=description"
+      get "/api/v1/items/find?unit_price=1.99"
 
-      invoice_response = JSON.parse(response.body)
+      item_response = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(item['description']).to eq(item.description)
+      expect(item_response['unit_price']).to eq("1.99")
     end
   end
 
@@ -83,6 +71,23 @@ describe "items search endpoint" do
       expect(invoices.count).to eq(2)
       expect(invoices.first['name']).to eq('bob')
       expect(invoices.last['name']).to eq('bob')
+    end
+  end
+
+  context "GET /invoices/find_all?unit_price" do
+    it "returns invoices with unit_price" do
+      item = create(:item, unit_price: 199)
+      item2 = create(:item, unit_price: 199)
+      item3 = create(:item, unit_price: 299)
+
+      get "/api/v1/items/find_all?unit_price=1.99"
+
+      invoices = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoices.count).to eq(2)
+      expect(invoices.first['unit_price']).to eq('1.99')
+      expect(invoices.last['unit_price']).to eq('1.99')
     end
   end
 
