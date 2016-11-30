@@ -35,12 +35,12 @@ describe "invoice_items search endpoint" do
       invoice_item = create(:invoice_item, unit_price: 199)
       invoice_item2 = create(:invoice_item, unit_price: 299)
 
-      get "/api/v1/invoice_items/find?unit_price=199"
+      get "/api/v1/invoice_items/find?unit_price=1.99"
 
       invoice_item_response = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(invoice_item_response['unit_price']).to eq(199)
+      expect(invoice_item_response['unit_price']).to eq("1.99")
     end
   end
 
@@ -58,6 +58,23 @@ describe "invoice_items search endpoint" do
       expect(invoice_items.count).to eq(2)
       expect(invoice_items.first['quantity']).to eq(99)
       expect(invoice_items.last['quantity']).to eq(99)
+    end
+  end
+
+  context "GET /invoice_items/find_all?name" do
+    it "returns invoice_items with corrected unit price" do
+      invoice_items = create(:invoice_item, unit_price: 199)
+      invoice_items2 = create(:invoice_item, unit_price: 199)
+      invoice_items3 = create(:invoice_item, unit_price: 100)
+      
+      get "/api/v1/invoice_items/find_all?unit_price=1.99"
+
+      invoice_items = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice_items.count).to eq(2)
+      expect(invoice_items.first['unit_price']).to eq("1.99")
+      expect(invoice_items.last['unit_price']).to eq("1.99")
     end
   end
 

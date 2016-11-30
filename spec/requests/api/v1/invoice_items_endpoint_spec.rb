@@ -28,6 +28,19 @@ describe "invoice_items endpoint" do
     end
   end
 
+  context "GET invoice_items/:id" do
+    it "returns a invoice_item with the correct unit price" do
+      invoice_item = create(:invoice_item, unit_price: 199)
+
+      get "/api/v1/invoice_items/#{invoice_item.id}"
+
+      invoice_item = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice_item["unit_price"]).to eq("1.99")
+    end
+  end
+
   context "GET /invoice_items/:id/invoice" do
     it "returns associated invoice" do
       invoice = create(:invoice, status: "complete")
