@@ -25,4 +25,36 @@ describe "merchants endpoint" do
       expect(merchant["name"]).to eq("Reynolds Inc")
     end
   end
+
+  context "GET /merchants/:id/items" do
+    it "returns a merchants items" do
+      merchant = create(:merchant, name: 'Matt')
+      merchant.items = create_list(:item, 3)
+
+      get "/api/v1/merchants/#{merchant.id}/items"
+
+      items = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(items.count).to eq(3)
+      expect(items.first['merchant_id']).to eq(merchant.id)
+      expect(items.last['merchant_id']).to eq(merchant.id)
+    end
+  end
+
+  context "GET /merchants/:id/invoices" do
+      it "returns a merchants invoices" do
+      merchant = create(:merchant, name: 'Matt')
+      merchant.invoices = create_list(:invoice, 3)
+
+      get "/api/v1/merchants/#{merchant.id}/invoices"
+
+      invoices = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoices.count).to eq(3)
+      expect(invoices.first['merchant_id']).to eq(merchant.id)
+      expect(invoices.last['merchant_id']).to eq(merchant.id)
+    end
+  end
 end
