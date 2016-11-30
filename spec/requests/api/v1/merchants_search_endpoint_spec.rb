@@ -13,10 +13,22 @@ describe "merchants search endpoint" do
 
       expect(response).to be_success
       expect(merchant_response["id"]).to eq(merchant1.id)
-
     end
   end
+  context "GET /api/v1/merchants/find?name" do
+    it "returns merchant with case insensitive name search" do
 
+      merchant1 = create(:merchant, name: "brad")
+      merchant2 = create(:merchant, name: "matt")
+
+      get "/api/v1/merchants/find?name=BRAD"
+
+      merchant_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(merchant_response["name"]).to eq("brad")
+    end
+  end
   context "GET /api/v1/merchants/find?name" do
     it "returns merchant with name" do
 

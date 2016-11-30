@@ -16,6 +16,21 @@ describe "transaction search endpoint" do
 
     end
   end
+  context "GET /api/v1/transactions/find?result" do
+    it "returns transaction with case insensitive search" do
+
+      transaction1 = create(:transaction, result: "completed")
+      transaction2 = create(:transaction, result: "pending")
+
+      get "/api/v1/transactions/find?result=COMPLETed"
+
+      transaction_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(transaction_response["result"]).to eq("completed")
+
+    end
+  end
   context "GET /transactions/find_all?parameters" do
     it "returns all transactions with same result" do
       transaction1 = create(:transaction, result: "good")
