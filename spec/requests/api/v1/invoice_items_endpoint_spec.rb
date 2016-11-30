@@ -26,4 +26,32 @@ describe "invoice_items endpoint" do
       expect(invoice_item["quantity"]).to eq(99)
     end
   end
+  context "GET /invoice_items/:id/invoice" do
+    it "returns associated invoice" do
+      invoice = create(:invoice, status: "complete")
+      invoice_item = create(:invoice_item, invoice: invoice)
+
+      get "/api/v1/invoice_items/#{invoice_item.id}/invoice"
+
+      invoice_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice_response["id"]).to eq(invoice.id)
+      expect(invoice_response["status"]).to eq("complete")
+    end
+  end
+  context "GET /invoice_items/:id/item" do
+    it "returns associated item" do
+      item = create(:item, name: "thing")
+      invoice_item = create(:invoice_item, item: item)
+
+      get "/api/v1/invoice_items/#{invoice_item.id}/item"
+
+      item_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(item_response["id"]).to eq(item.id)
+      expect(item_response["name"]).to eq("thing")
+    end
+  end
 end

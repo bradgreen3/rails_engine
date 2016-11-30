@@ -14,6 +14,7 @@ describe "transactions endpoint" do
       expect(transactions.count).to eq(3)
     end
   end
+
   context "GET /api/v1/transactions/:id" do
     it "returns a transaction" do
 
@@ -21,10 +22,25 @@ describe "transactions endpoint" do
 
       get "/api/v1/transactions/#{transaction.id}"
 
-      transaction = JSON.parse(response.body)
+      transaction_response = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(transaction["credit_card_number"]).to eq("1234")
+      expect(transaction_response["credit_card_number"]).to eq("1234")
+    end
+  end
+
+  context "GET /api/v1/transactions/:id/invoice" do
+    it "returns a transactions invoice" do
+      invoice = create(:invoice, status: 'Test Paid')
+      transaction = create(:transaction, invoice: invoice)
+      
+      get "/api/v1/transactions/#{transaction.id}/invoice"
+
+      invoice_response = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice_response['id']).to eq(invoice.id)
+      expect(invoice_response['status']).to eq('Test Paid')
     end
   end
 end
