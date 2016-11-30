@@ -1,32 +1,75 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      namespace :invoices do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
+      end
+      namespace :merchants do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
+      end
+      namespace :items do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
+      end
+      namespace :transactions do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
+      end
+      namespace :invoice_items do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
+      end
+      namespace :customers do
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+        get 'random', to: 'random#show'
+      end
       resources :merchants, except: [:new, :edit] do
-        get '/items', to: 'merchants/items#index'
-        get '/invoices', to: 'merchants/invoices#index'
+        scope module: 'merchants' do
+          get 'items', to: 'items#index'
+          get 'invoices', to: 'invoices#index'
+        end
       end
       resources :customers, except: [:new, :edit] do
-        get '/invoices', to: 'customers/invoices#index'
-        get '/transactions', to: 'customers/transactions#index'
+        scope module: 'customers' do
+          get '/invoices', to: 'invoices#index'
+          get '/transactions', to: 'transactions#index'
         end
+      end
       resources :transactions, except: [:new, :edit] do
-        get '/invoice', to: 'transactions/invoices#show'
+        scope module: 'transactions' do
+          get '/invoice', to: 'invoices#show'
+        end
       end
       resources :invoices, except: [:new, :edit] do
-        get '/transactions', to: 'invoices/transactions#index'
-        get '/invoice_items', to: 'invoices/invoice_items#index'
-        get '/items', to: 'invoices/items#index'
-        get '/customer', to: 'invoices/customers#show'
-        get '/merchant', to: 'invoices/merchants#show'
+        scope module: 'invoices' do
+          get '/transactions', to: 'transactions#index'
+          get '/invoice_items', to: 'invoice_items#index'
+          get '/items', to: 'items#index'
+          get '/customer', to: 'customers#show'
+          get '/merchant', to: 'merchants#show'
+        end
       end
       resources :invoice_items, except: [:new, :edit] do
-        get '/invoice', to: 'invoice_items/invoices#show'
-        get '/item', to: 'invoice_items/items#show'
+        scope module: 'invoice_items' do
+          get '/invoice', to: 'invoices#show'
+          get '/item', to: 'items#show'
+        end
       end
       resources :items, except: [:new, :edit] do
-        get '/invoice_items', to: 'items/invoice_items#index'
-        get '/merchant', to: 'items/merchants#show'
+        scope module: 'items' do
+          get '/invoice_items', to: 'invoice_items#index'
+          get '/merchant', to: 'merchants#show'
+        end
       end
+
     end
   end
 end
