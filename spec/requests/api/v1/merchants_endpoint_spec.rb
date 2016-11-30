@@ -5,7 +5,7 @@ describe "merchants endpoint" do
     it "returns all merchants" do
       create_list(:merchant, 3)
 
-      get "/api/v1/merchants.json"
+      get "/api/v1/merchants"
 
       merchants = JSON.parse(response.body)
 
