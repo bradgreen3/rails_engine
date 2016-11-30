@@ -33,7 +33,7 @@ describe "transactions endpoint" do
     it "returns a transactions invoice" do
       invoice = create(:invoice, status: 'Test Paid')
       transaction = create(:transaction, invoice: invoice)
-      
+
       get "/api/v1/transactions/#{transaction.id}/invoice"
 
       invoice_response = JSON.parse(response.body)
