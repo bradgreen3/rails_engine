@@ -35,6 +35,14 @@ class Merchant < ApplicationRecord
     .order("revenue DESC").limit(quantity)
   end
 
+  def self.most_items(num_of_merchants)
+    select("merchants.*, sum(invoice_items.quantity) AS items_sold")
+    .joins(invoices: [:transactions, :invoice_items])
+    .where(transactions: {result: 'success'})
+    .group(:id)
+    .order("items_sold DESC").limit(num_of_merchants)
+  end
+
   def dollarize(result)
   	'%.2f' % (result / 100.00).to_s
   end
