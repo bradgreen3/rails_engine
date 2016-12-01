@@ -43,6 +43,7 @@ Rails.application.routes.draw do
         scope module: 'customers' do
           get '/invoices', to: 'invoices#index'
           get '/transactions', to: 'transactions#index'
+          get '/favorite_merchant', to: 'favorites#show'
         end
       end
       resources :transactions, except: [:new, :edit] do
