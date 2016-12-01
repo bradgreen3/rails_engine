@@ -36,6 +36,7 @@ Rails.application.routes.draw do
           get 'items', to: 'items#index'
           get 'invoices', to: 'invoices#index'
           get 'revenue', to: 'revenues#show'
+          get 'favorite_customer', to: 'favorites#show'
         end
       end
       resources :customers, except: [:new, :edit] do
