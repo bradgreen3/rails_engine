@@ -20,11 +20,19 @@ class Merchant < ApplicationRecord
                             .sum('invoice_items.quantity * invoice_items.unit_price')
                         )}
   end
-  
+
   def self.favorite_merchant(customer_id)
     joins(invoices: :transactions)
     .where(transactions: {result: 'success'}, invoices: {customer_id: customer_id})
     .group(:id).order("count (transactions) desc").first
+  end
+
+  def self.top_merchants(quantity)
+    select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+    .joins(invoices: [:transactions, :invoice_items])
+    .where(transactions: {result: 'success'})
+    .group(:id)
+    .order("revenue DESC").limit(quantity)
   end
 
   def dollarize(result)
