@@ -46,7 +46,7 @@ describe 'Single merchant business intelligence' do
 			expect(customer_response['id']).to eq(customer2.id)
 		end
 	end
-	
+
 	context 'revenue' do
 		it 'calculated the revenue for one merchant for specific invoice date' do
 			merchant = create(:merchant)
@@ -69,4 +69,5 @@ describe 'Single merchant business intelligence' do
 			expect(merchant_response['revenue']).to eq('150.00')
 		end
 	end
+
 end
