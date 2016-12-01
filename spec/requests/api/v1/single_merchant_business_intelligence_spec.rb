@@ -23,9 +23,9 @@ describe 'Single merchant business intelligence' do
 
 			expect(merchant_response['revenue']).to eq('150.00')
 		end
-	end	
+	end
 
-	context 'favorite merchant' do
+	context 'favorite customer' do
 		it 'returns the customer who has conducted the most total number of successful transactions.' do
 			merchant = create(:merchant)
 			customer1 = create(:customer)
@@ -40,7 +40,7 @@ describe 'Single merchant business intelligence' do
 			transaction = create(:transaction, invoice: invoice4, result: 'success')
 
 			get "/api/v1/merchants/#{merchant.id}/favorite_customer"
-			
+
 			customer_response = JSON.parse(response.body)
 
 			expect(customer_response['id']).to eq(customer2.id)
