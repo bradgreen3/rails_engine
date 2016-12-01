@@ -4,6 +4,6 @@ class Api::V1::Merchants::RevenuesController < ApplicationController
 	end
 
 	def index
-		render json: Merchant.top_merchants(params[:quantity])
+		render json: Merchant.top_merchants(params[:quantity], params[:date])
 	end
 end
