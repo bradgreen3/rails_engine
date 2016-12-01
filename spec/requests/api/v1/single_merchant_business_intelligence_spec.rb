@@ -21,8 +21,7 @@ describe 'Single merchant business intelligence' do
 
 			merchant_response = JSON.parse(response.body)
 
-
-			expect(merchant_response).to eq('150.00')
+			expect(merchant_response['revenue']).to eq('150.00')
 		end
 	end	
 end
