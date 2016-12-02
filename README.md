@@ -5,6 +5,10 @@
 ###Setup 
  * ```git clone git@github.com:bradgreen3/rails_engine.git```
 
+ * ```bundle```
+
+ * Seed database with ```rake import```
+
 * Ruby version
 
 * System dependencies
