@@ -55,7 +55,6 @@
         null,
         1,
         null,
-        null,
         null
       ],
       "/Users/mdcomputer/Turing/rp3mod/projects/rails_engine/app/models/application_record.rb": [
@@ -560,6 +559,6 @@
         null
       ]
     },
-    "timestamp": 1480643416
+    "timestamp": 1480644436
   }
 }
