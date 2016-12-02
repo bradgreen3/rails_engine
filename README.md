@@ -3,7 +3,7 @@
 #Rails Engine
 
 ###Setup 
- * ```
+ * ```git clone git@github.com:bradgreen3/rails_engine.git```
 
 * Ruby version
 
