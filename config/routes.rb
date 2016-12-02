@@ -12,7 +12,7 @@ Rails.application.routes.draw do
         get 'random', to: 'random#show'
         get 'most_revenue', to: 'revenues#index'
         get 'most_items', to: 'most_items#index'
-        get 'revenue', to: 'revenues#index'
+        get 'revenue', to: 'revenues_date#show'
       end
       namespace :items do
         get 'find', to: 'search#show'
@@ -76,7 +76,6 @@ Rails.application.routes.draw do
           get '/merchant', to: 'merchants#show'
         end
       end
-
     end
   end
 end

@@ -9,17 +9,15 @@ class Merchant < ApplicationRecord
   end
 
   def tr_no_date
-    {revenue: dollarize(self.invoices.joins(:transactions, :invoice_items)
-                            .where(transactions: {result: 'success'})
-                            .sum('invoice_items.quantity * invoice_items.unit_price')
-                        )}
+    invoices.joins(:transactions, :invoice_items)
+    .where(transactions: {result: 'success'})
+    .sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
   def tr_has_date(date)
-    {revenue: dollarize(self.invoices.joins(:transactions, :invoice_items)
-                            .where(transactions: {result: 'success'}, invoices: {created_at: date})
-                            .sum('invoice_items.quantity * invoice_items.unit_price')
-                        )}
+    invoices.joins(:transactions, :invoice_items)
+    .where(transactions: {result: 'success'}, invoices: {created_at: date})
+    .sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
   def self.favorite_merchant(customer_id)
@@ -28,18 +26,13 @@ class Merchant < ApplicationRecord
     .group(:id).order("count (transactions) desc").first
   end
 
-  def self.top_merchants(quantity=nil, date=nil)
-    quantity == nil ? top_merchants_no_quantity(date) : top_merchants_no_date(quantity)
+  def self.total_merchants_revenue_by_date(date=nil)
+    joins(invoices: [:transactions, :invoice_items])
+    .where(transactions: {result: 'success'}, invoices: {created_at: date})
+    .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
-  def self.top_merchants_no_quantity(date)
-    {total_revenue: dollarize(joins(invoices: [:transactions, :invoice_items])
-                        .where(transactions: {result: 'success'}, invoices: {created_at: date})
-                        .sum("invoice_items.quantity * invoice_items.unit_price")
-                        )}
-  end
-
-  def self.top_merchants_no_date(quantity)
+  def self.top_merchants_list(quantity)
     select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
     .joins(invoices: [:transactions, :invoice_items])
     .where(transactions: {result: 'success'})
@@ -54,13 +47,4 @@ class Merchant < ApplicationRecord
     .group(:id)
     .order("items_sold DESC").limit(num_of_merchants)
   end
-
-  def dollarize(result)
-  	'%.2f' % (result / 100.00).to_s
-  end
-
-  def self.dollarize(result)
-    '%.2f' % (result / 100.00).to_s
-  end
-
 end
