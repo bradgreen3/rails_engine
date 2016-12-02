@@ -19,12 +19,7 @@
         1,
         null,
         null,
-        null,
         1,
-        null,
-        null,
-        1,
-        null,
         null,
         null,
         1,
@@ -37,19 +32,9 @@
         null,
         null,
         1,
-        2,
         null,
         null,
         1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null,
         null,
         null,
         1,
@@ -64,10 +49,10 @@
         null,
         null,
         1,
-        2,
         null,
         null,
-        1,
+        null,
+        null,
         1,
         null,
         null,
@@ -95,6 +80,9 @@
         1,
         null,
         1,
+        null,
+        null,
+        null,
         1,
         null,
         null,
@@ -134,7 +122,7 @@
         null,
         null,
         1,
-        2,
+        1,
         null,
         null
       ],
@@ -154,6 +142,22 @@
         1,
         1,
         null,
+        null,
+        null
+      ],
+      "/Users/mdcomputer/Turing/rp3mod/projects/rails_engine/app/controllers/api/v1/merchants/revenues_date_controller.rb": [
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/mdcomputer/Turing/rp3mod/projects/rails_engine/app/serializers/total_revenue_serializer.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
         null,
         null
       ],
@@ -496,6 +500,15 @@
         null,
         null
       ],
+      "/Users/mdcomputer/Turing/rp3mod/projects/rails_engine/app/serializers/revenue_serializer.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null
+      ],
       "/Users/mdcomputer/Turing/rp3mod/projects/rails_engine/app/controllers/api/v1/merchants/favorites_controller.rb": [
         1,
         1,
@@ -547,6 +560,6 @@
         null
       ]
     },
-    "timestamp": 1480638250
+    "timestamp": 1480643416
   }
 }
